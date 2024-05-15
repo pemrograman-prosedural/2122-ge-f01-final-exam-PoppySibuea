@@ -1,6 +1,3 @@
-// 12S23004 - Poppy Sibuea
-// 12S23020 - Rachel C.P. Simorangkir
-
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -27,6 +24,8 @@ int main(int _argc, char **_argv)
         fgets(line, 255, stdin);
         fflush(stdin);
         
+        /* declared in scope level --> temporary
+           but the result remains */
         {
             int len = strlen(line);
             for (short a = 0; a < len; a++) {
@@ -60,6 +59,12 @@ int main(int _argc, char **_argv)
         }
 
         else if ( strcmp(line, "dorm-print-all-detail") == 0 ) {
+            for (short i=0; i<totalDorm; i++) {
+                printDormDetails(dorms[i]);
+            }
+        }
+
+        else if ( strcmp(line, "student-leave") == 0 ) {
             for (short i=0; i<totalDorm; i++) {
                 printDormDetails(dorms[i]);
             }
@@ -104,13 +109,13 @@ int main(int _argc, char **_argv)
                 }
             }
 
-            else if ( strcmp(token, "assign-student" ) == 0 ) {
+            else if ( strcmp(token, "assign-student") == 0 ) {
                 token = strtok(NULL, delim); char *_id = token;
                 token = strtok(NULL, delim); char *dorm_name = token;
 
                 short studentIdx = findStudentIdx(_id, students, totalStudent);
                 short dormIdx = findDormIdx(dorm_name, dorms, totalDorm);
- 
+
                 if ( studentIdx>=0 && dormIdx>=0 ) {
                     assign(&students[studentIdx], &dorms[dormIdx]);
                 }
@@ -139,8 +144,10 @@ int main(int _argc, char **_argv)
                 char *dorm_name = token;
                 short target = findDormIdx(dorm_name, dorms, totalDorm);
                 
+                // emptyDorm(&dorms[target], &students, totalStudent);
+
                 for (short i=0; i<totalStudent; i++) {
-                    if (students[i].dorm != NULL) {    
+                    if (students[i].dorm != NULL) {     /* MENGHINDARI STRING COMPARATION DGN NULL */
                         if ( strcmp(students[i].dorm->name, dorm_name) == 0 ) {
                             unassign(&students[i], &dorms[target]);
                         }
