@@ -121,7 +121,7 @@ int main(int _argc, char **_argv)
             }
 
             else if (strcmp(token, "dorm-empty") == 0) {
-                token - strtok(NULL, delim);
+                token = strtok(NULL, delim);
                 char *dorm_name = token;
                 short target = findDormIdx(dorm_name, dorm, totalDorm);
 
