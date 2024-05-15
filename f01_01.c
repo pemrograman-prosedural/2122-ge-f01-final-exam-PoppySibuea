@@ -54,7 +54,7 @@ int main(int _argc, char **_argv)
         
         else if( strcmp(line, "student-print-all-detail") == 0 ){
             for (short i=0; i<totalStudent; i++) {
-                printStudentDetails(students[i]);
+                printDormDetails(dorm[i]);
             }
         }
 
